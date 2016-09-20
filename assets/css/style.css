@@ -1,0 +1,60 @@
+body {
+	padding: 20px;
+}
+
+.center {
+	text-align: center;
+}
+
+.left {
+	float: left;
+}
+
+.pad {
+	padding: 10px;
+}
+
+.half-width {
+	width: 50%;
+}
+
+.full-width {
+	width: 100%;
+}
+
+.spacing-top {
+	margin-top: 10px;
+}
+
+.spacing-bottom {
+	margin-bottom: 10px;
+}
+
+.middle {
+	vertical-align: middle !important;
+}
+
+#content {
+	clear: both;
+}
+
+.table .clickable:hover {
+	background-color: #eee;
+	border-color: #ddd;
+	cursor: pointer;
+}
+
+.table .filter-label {
+	padding-top: 3px;
+}
+
+.table .filter-field {
+	width: auto;
+	padding: 2px;
+	height: auto;
+	margin-left: 5px;
+}
+
+#photo-view {
+	max-width: 100%;
+}

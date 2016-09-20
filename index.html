@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Photo gallery</title>
+
+	<!-- JQuery third-party sources -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+	<!-- Bootstrap third-party sources -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+	<!-- Angular and it's dependencies -->
+	<script src="assets/js/angular.min.js"></script>
+	<script src="assets/js/angular-route.js"></script>
+
+	<!-- Application styles -->
+	<link rel="stylesheet" href="assets/css/style.css" media="all" type="text/css">
+
+	<!-- Application scripts -->
+	<script src="assets/js/const.js"></script>
+
+	<!-- Angular -->
+	<script src="app/main.js"></script>
+	<script src="app/services/Data.js"></script>
+	<script src="app/controllers/Header.js"></script>
+	<script src="app/controllers/Photos.js"></script>
+	<script src="app/controllers/Photo.js"></script>
+
+</head>
+<body ng-app="Gallery">
+
+	<header ng-controller="Header">
+		<div class="page-header">
+			<h1>Photo gallery
+				<small>{{page.name}}</small>
+			</h1>
+		</div>
+	</header>
+
+	<div id="content" ng-view>
+
+	</div>
+
+	<footer>
+		<div class="center left full-width spacing-top">&copy; Sigma</div>
+	</footer>
+
+	<!-- Angular templates -->
+	<script type="text/ng-template" id="home-page">
+		<div class="panel panel-default" ng-controller="Photos">
+			<table class="table">
+				<tr>
+					<th class="middle">ID</th>
+					<th>
+						<div class="left filter-label">Name</div>
+						<input type="text" class="form-control filter-field left" placeholder="Search" value="" ng-model="filterPattern" ng-change="handleInputChange()">
+					</th>
+					<th class="middle">Likes count</th>
+					<th class="middle">Visible</th>
+				</tr>
+				<tr class="clickable" ng-repeat="photo in photos" ng-click="handleRowClick(photo.id)">
+					<td>{{photo.id}}</td>
+					<td>{{photo.name}}</td>
+					<td>{{photo.likes}}</td>
+					<td><span class="glyphicon glyphicon-check" ng-if="photo.isVisible === true"></span></td>
+				</tr>
+			</table>
+		</div>
+		<!--<div class="center">-->
+			<!--<nav aria-label="Page navigation">-->
+				<!--<ul class="pagination">-->
+					<!--<li>-->
+						<!--<a href="#" aria-label="Previous">-->
+							<!--<span aria-hidden="true">&laquo;</span>-->
+						<!--</a>-->
+					<!--</li>-->
+					<!--<li><a href="#">1</a></li>-->
+					<!--<li><a href="#">2</a></li>-->
+					<!--<li><a href="#">3</a></li>-->
+					<!--<li><a href="#">4</a></li>-->
+					<!--<li><a href="#">5</a></li>-->
+					<!--<li>-->
+						<!--<a href="#" aria-label="Next">-->
+							<!--<span aria-hidden="true">&raquo;</span>-->
+						<!--</a>-->
+					<!--</li>-->
+				<!--</ul>-->
+			<!--</nav>-->
+		<!--</div>-->
+	</script>
+
+	<script type="text/ng-template" id="photo-page">
+		<div class="half-width left">
+			<img src="assets/img/placeholder.png" alt="Photo" id="photo-view">
+		</div>
+		<div class="half-width left pad" ng-controller="Photo">
+			<div class="spacing-bottom">
+				<label for="photo-name">Photo name:</label>
+				<div class="input-group">
+					<input type="text" class="form-control" id="photo-name" value="{{photo.name}}" ng-model="photo.name">
+				</div>
+			</div>
+			<div class="spacing-bottom">
+				<label>Author: {{photo.author}}</label>
+			</div>
+			<div class="spacing-bottom">
+				<div class="input-group">
+					<input type="checkbox" ng-checked="photo.isVisible === true" ng-model="photo.isVisible">
+					Visible
+				</div>
+			</div>
+			<div class="spacing-bottom">
+				<span class="glyphicon glyphicon-heart"></span>&nbsp;{{photo.likes}}
+			</div>
+			<div>
+				<button class="btn btn-success" type="button" ng-click="handleSaveButtonClick()">Save</button>
+				<button class="btn btn-default" type="button" ng-click="handleCancelButtonClick()">Cancel</button>
+			</div>
+		</div>
+	</script>
+
+</body>
+</html>
