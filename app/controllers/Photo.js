@@ -6,7 +6,20 @@ app.controller('Photo', function($scope, $location, Data, $routeParams) {
 		$location.path(Const.URL_HOME_PAGE);
 	};
 
-	$scope.photo = Data.getPhotoById(currentPhotoId);
+	if (!Data.isReady()) {
+		var promise = Data.uploadPhoto();
+		promise.then(
+				function (payload) {
+					Data.setPhotos(payload.data.slice(0, 50));
+					$scope.photo = Data.getPhotoById(currentPhotoId);
+				}
+		);
+	}
+	else {
+		$scope.photo = Data.getPhotoById(currentPhotoId);
+	}
+
+
 
 	$scope.handleSaveButtonClick = function () {
 		Data.updatePhoto($scope.photo);

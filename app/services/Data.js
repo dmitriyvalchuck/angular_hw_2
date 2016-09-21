@@ -1,42 +1,44 @@
-app.factory("Data", function ($window, $rootScope) {
+app.factory("Data", function ($window, $rootScope, $http) {
 	var service = {};
 
-	service._photos = [
-		{
-			"id": "1",
-			"name": "Summer.jpeg",
-			"likes": "3",
-			"author": "Ivan Ivanov",
-			"isVisible": true
-		},
-		{
-			"id": "2",
-			"name": "Autumn.png",
-			"likes": "6",
-			"author": "Vasya Pupkin",
-			"isVisible": true
-		},
-		{
-			"id": "3",
-			"name": "Winter.png",
-			"likes": "16",
-			"author": "Petr Petrov",
-			"isVisible": false
-		},
-		{
-			"id": "4",
-			"name": "Spring.JPG",
-			"likes": "12",
-			"author": "Anna Ivanova",
-			"isVisible": true
-		}
-	];
+	//service._photos = [
+	//	{
+	//		"id": "1",
+	//		"name": "Summer.jpeg",
+	//		"likes": "3",
+	//		"author": "Ivan Ivanov",
+	//		"isVisible": true
+	//	},
+	//	{
+	//		"id": "2",
+	//		"name": "Autumn.png",
+	//		"likes": "6",
+	//		"author": "Vasya Pupkin",
+	//		"isVisible": true
+	//	},
+	//	{
+	//		"id": "3",
+	//		"name": "Winter.png",
+	//		"likes": "16",
+	//		"author": "Petr Petrov",
+	//		"isVisible": false
+	//	},
+	//	{
+	//		"id": "4",
+	//		"name": "Spring.JPG",
+	//		"likes": "12",
+	//		"author": "Anna Ivanova",
+	//		"isVisible": true
+	//	}
+	//];
+
+	service._photos = [];
 
 	service._getPhotoIndexById = function (id) {
 		var result = -1;
 
 		for(var i = 0; i < this._photos.length; i++) {
-			if(this._photos[i].id === id) {
+			if(this._photos[i].id == id) {
 				result = i;
 			}
 		}
@@ -52,7 +54,7 @@ app.factory("Data", function ($window, $rootScope) {
 		var result = -1;
 
 		for(var i = 0; i < this._photos.length; i++) {
-			if(this._photos[i].id === id) {
+			if(this._photos[i].id == id) {
 				result = this._photos[i];
 			}
 		}
@@ -82,6 +84,19 @@ app.factory("Data", function ($window, $rootScope) {
 		}
 
 		return filteredPhotos;
+	};
+
+	service.uploadPhoto = function () {
+		//debugger;
+		return $http.get('photos.json');
+	};
+
+	service.setPhotos = function (photos) {
+		this._photos = photos;
+	};
+
+	service.isReady = function(){
+		return typeof this._photos !== 'undefined' && this._photos.length !== 0;
 	};
 
 	return service;

@@ -6,15 +6,15 @@
 	<title>Photo gallery</title>
 
 	<!-- JQuery third-party sources -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>-->
 
 	<!-- Bootstrap third-party sources -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>-->
 
 	<!-- Angular and it's dependencies -->
-	<script src="assets/js/angular.min.js"></script>
+	<script src="assets/js/angular.js"></script>
 	<script src="assets/js/angular-route.js"></script>
 
 	<!-- Application styles -->
@@ -48,7 +48,9 @@
 	<footer>
 		<div class="center left full-width spacing-top">&copy; Sigma</div>
 	</footer>
+<script>
 
+</script>
 	<!-- Angular templates -->
 	<script type="text/ng-template" id="home-page">
 		<div class="panel panel-default" ng-controller="Photos">
@@ -62,11 +64,14 @@
 					<th class="middle">Likes count</th>
 					<th class="middle">Visible</th>
 				</tr>
-				<tr class="clickable" ng-repeat="photo in photos" ng-click="handleRowClick(photo.id)">
-					<td>{{photo.id}}</td>
+				<tr class="clickable" ng-repeat="photo in ::photos" ng-click="handleRowClick(photo.id) ">
+					<!--<td>{{printCount()}}</td>-->
+					<td>{{::$index + 1}}</td>
 					<td>{{photo.name}}</td>
-					<td>{{photo.likes}}</td>
-					<td><span class="glyphicon glyphicon-check" ng-if="photo.isVisible === true"></span></td>
+					<td>{{::photo.likes}}</td>
+					<!--<td><span class="glyphicon glyphicon-check" ng-if="photo.isVisible === true"></span></td>-->
+					<td><span class="glyphicon glyphicon-check" ng-if="photo.isVisible"></span></td>
+					<!--<td><span class="glyphicon glyphicon-check" style="display: {{photo.isVisible | isvisible}}"></span></td>-->
 				</tr>
 			</table>
 		</div>
@@ -109,12 +114,12 @@
 			</div>
 			<div class="spacing-bottom">
 				<div class="input-group">
-					<input type="checkbox" ng-checked="photo.isVisible === true" ng-model="photo.isVisible">
+					<input type="checkbox" ng-checked="::photo.isVisible" ng-model="photo.isVisible">
 					Visible
 				</div>
 			</div>
 			<div class="spacing-bottom">
-				<span class="glyphicon glyphicon-heart"></span>&nbsp;{{photo.likes}}
+				<span class="glyphicon glyphicon-heart"></span>&nbsp;{{::photo.likes}}
 			</div>
 			<div>
 				<button class="btn btn-success" type="button" ng-click="handleSaveButtonClick()">Save</button>
